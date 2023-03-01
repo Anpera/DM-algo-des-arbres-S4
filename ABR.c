@@ -5,12 +5,15 @@ Noeud * alloue_noeud(char * mot){
     if (nouveau){
         nouveau->fg = NULL;
         nouveau->fd = NULL;
-        //nouveau->mot = strdup(mot);  //Méthode 1
-        nouveau->mot = (char *) malloc(sizeof(mot)); //Alternative
-        // //strcpy(nouveau->mot, mot); //Alternative 1
-        for (int i = 0; i <= strlen(mot); ++i){ //Alternative 2
-            nouveau->mot[i] = mot[i];
+        // nouveau->mot = strdup(mot);  //Méthode 1
+        nouveau->mot = (char *) malloc(sizeof(mot));//Alternative
+        if (nouveau->mot){
+            //strcpy(nouveau->mot, mot); //Alternative 1
+            for (int i = 0; i <strlen(mot); i++) //Alternative2
+                nouveau->mot[i] = mot[i];
         }
+        else
+            free(nouveau);
     }
     return nouveau;
 }
@@ -27,13 +30,13 @@ void libere(Arbre * A){
     if (*A){
         libere(&(*A)->fg);
         libere(&(*A)->fd);
+        free((*A)->mot);
         free(*A);
     }
 }
 
 int main(){
-    char mot[] = "Bonjour";
-    Arbre a = alloue_noeud(mot);
+    Arbre a = alloue_noeud("Bonjour");
     a->fg = alloue_noeud("Au revoir");
     a->fd = alloue_noeud("Bisous");
     parcours_infixe(a);
