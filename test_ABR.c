@@ -8,11 +8,11 @@ int main(){
     ajout(&a, strings);
     strcpy(strings, "hello");
     ajout(&a, strings);
-    strcpy(strings, "aled");
+    strcpy(strings, "Aled");
     ajout(&a, strings);
     strcpy(strings, "a");
     ajout(&a, strings);
-    strcpy(strings, "fini !");
+    strcpy(strings, "Fini !");
     ajout(&a, strings);
     strcpy(strings, "coucou");
     ajout(&a, strings);

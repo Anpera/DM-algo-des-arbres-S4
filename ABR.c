@@ -26,13 +26,6 @@ void parcours_infixe(Arbre A){
     }
 }
 
-void minuscule(char * mot){
-    for (int i = 0; mot[i] != '\0'; i++){
-        if (mot[i] < 'a')
-            mot[i] = mot[i] + 'a' - 'A'; 
-    }
-}
-
 Noeud * ajout(Arbre *A, char *mot){
     if (*A){
         int cmp = strcmp(mot, (*A)->mot);
