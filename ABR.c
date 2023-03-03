@@ -50,6 +50,7 @@ Noeud * ajout(Arbre *A, char *mot){
         *A = alloue_noeud(mot);
         return *A;
     }
+    return NULL;
 }
 
 void libere(Arbre * A){
@@ -61,19 +62,51 @@ void libere(Arbre * A){
     }
 }
 
-int main(){
-    Arbre a = alloue_noeud("bonjour");
-    ajout(&a, "bye");
-    ajout(&a, "hello");
-    ajout(&a, "aled");
-    ajout(&a, "a");
-    ajout(&a, "fini !");
-    ajout(&a, "coucou");
-    ajout(&a, "bonjour");
+void ecrireDebut(FILE *f){
+    fprintf(f, "digraph arbre {\n"
+            "  node [shape = record, height = .1]\n"
+            "  edge [tailclip = false , arrowtail = dot , dir = both ];\n\n");
+}
 
-    parcours_infixe(a);
+void ecrireArbre(FILE *f, Arbre a){
+    fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droit>\"];\n", a, a->mot);
+    if (a->fg){
+        fprintf(f, "  n%p:gauche:c -> n%p:mot;\n", a, a->fg);
+        ecrireArbre(f, a->fg);
+    }
 
-    libere(&a);
+    if (a->fd){
+        fprintf(f, "  n%p:droit:c -> n%p:mot;\n", a, a->fd);
+        ecrireArbre(f, a->fd);
+    }
+}
 
-    return 0;
+void ecrireFin(FILE *f){
+    fprintf(f, "}\n");
+}
+
+void dessine(char * nom, Arbre A){
+
+    char *dotfile = (char *) malloc((sizeof(char)) * (strlen(nom) + 4));
+
+    strcpy(dotfile, nom);
+    strcat(dotfile, ".dot");
+
+    FILE *fichier = fopen(dotfile, "w");
+
+    ecrireDebut(fichier);
+    ecrireArbre(fichier, A);
+    ecrireFin(fichier);
+    fclose(fichier);
+
+    int len = strlen(nom)*2 + 25;
+    char cmd[len];
+    strcpy(cmd, "dot -Tpdf ");
+    strcat(cmd, dotfile);
+    strcat(cmd, " -o ");
+    strcat(cmd, nom);
+    strcat(cmd, ".pdf");
+    system(cmd);
+
+    free(dotfile);
 }

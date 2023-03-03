@@ -10,4 +10,14 @@ typedef struct noeud{
     struct noeud *fg, *fd;
 } Noeud, *Arbre;
 
+Noeud * alloue_noeud(char * mot);
+void parcours_infixe(Arbre A);
+void minuscule(char * mot);
+Noeud * ajout(Arbre *A, char *mot);
+void libere(Arbre * A);
+void ecrireDebut(FILE *f);
+void ecrireArbre(FILE *f, Arbre a);
+void ecrireFin(FILE *f);
+void dessine(char * nom, Arbre A);
+
 #endif
