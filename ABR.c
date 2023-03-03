@@ -26,6 +26,32 @@ void parcours_infixe(Arbre A){
     }
 }
 
+void minuscule(char * mot){
+    for (int i = 0; mot[i] != '\0'; i++){
+        if (mot[i] < 'a')
+            mot[i] = mot[i] + 'a' - 'A'; 
+    }
+}
+
+Noeud * ajout(Arbre *A, char *mot){
+    if (*A){
+        int cmp = strcmp(mot, (*A)->mot);
+        
+        if (cmp < 0)
+            ajout(&(*A)->fg, mot);
+
+        else if (cmp > 0)
+            ajout(&(*A)->fd, mot);
+
+        else
+            return NULL;
+    }
+    else{
+        *A = alloue_noeud(mot);
+        return *A;
+    }
+}
+
 void libere(Arbre * A){
     if (*A){
         libere(&(*A)->fg);
@@ -36,10 +62,17 @@ void libere(Arbre * A){
 }
 
 int main(){
-    Arbre a = alloue_noeud("Bonjour");
-    a->fg = alloue_noeud("Au revoir");
-    a->fd = alloue_noeud("Bisous");
+    Arbre a = alloue_noeud("bonjour");
+    ajout(&a, "bye");
+    ajout(&a, "hello");
+    ajout(&a, "aled");
+    ajout(&a, "a");
+    ajout(&a, "fini !");
+    ajout(&a, "coucou");
+    ajout(&a, "bonjour");
+
     parcours_infixe(a);
+
     libere(&a);
 
     return 0;
