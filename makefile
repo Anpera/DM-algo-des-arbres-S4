@@ -14,7 +14,7 @@ objets/ABR.o: ABR.c ABR.h
 objets/test_ABR.o : test_ABR.c ABR.h
 	$(CC) -c -o $@ $<
 
-cleandeluxe: cleanObj cleanPdf
+cleanDeluxe: cleanObj cleanPdf
 
 cleanObj:
 	rm -f objets/ABR.o

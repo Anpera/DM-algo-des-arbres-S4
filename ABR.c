@@ -62,14 +62,14 @@ void ecrireDebut(FILE *f){
 }
 
 void ecrireArbre(FILE *f, Arbre a){
-    fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droit>\"];\n", a, a->mot);
+    fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droite>\"];\n", a, a->mot);
     if (a->fg){
         fprintf(f, "  n%p:gauche:c -> n%p:mot;\n", a, a->fg);
         ecrireArbre(f, a->fg);
     }
 
     if (a->fd){
-        fprintf(f, "  n%p:droit:c -> n%p:mot;\n", a, a->fd);
+        fprintf(f, "  n%p:droite:c -> n%p:mot;\n", a, a->fd);
         ecrireArbre(f, a->fd);
     }
 }
