@@ -14,6 +14,8 @@ Noeud * alloue_noeud(char * mot);
 void parcours_infixe(Arbre A);
 void minuscule(char * mot);
 Noeud * ajout(Arbre *A, char *mot);
+Noeud * extrait_max(Arbre *A);
+Noeud * suppression(Arbre * A, char * mot);
 void libere(Arbre * A);
 void ecrireDebut(FILE *f);
 void ecrireArbre(FILE *f, Arbre a);

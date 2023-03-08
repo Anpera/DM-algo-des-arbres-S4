@@ -1,5 +1,11 @@
 #include "ABR.h"
 
+/**
+ * @brief Fonction allouant de la place mémoire pour un mot dans l'arbre
+ * 
+ * @param mot char *
+ * @return Noeud* 
+ */
 Noeud * alloue_noeud(char * mot){
     Noeud * nouveau = (Noeud *) malloc(sizeof(Noeud));
     if (nouveau){
@@ -18,6 +24,11 @@ Noeud * alloue_noeud(char * mot){
     return nouveau;
 }
 
+/**
+ * @brief Fonction qui affichent un parcours infixe d'un arbre
+ * 
+ * @param A Arbre
+ */
 void parcours_infixe(Arbre A){
     if (A){
         parcours_infixe(A->fg);
@@ -26,6 +37,14 @@ void parcours_infixe(Arbre A){
     }
 }
 
+/**
+ * @brief Fonction qui ajoute dans l'arbre un mot soit à gauche
+ * soit à droite
+ * 
+ * @param A Arbre *
+ * @param mot char *
+ * @return Noeud* 
+ */
 Noeud * ajout(Arbre *A, char *mot){
     if (*A){
         int cmp = strcmp(mot, (*A)->mot);
@@ -46,6 +65,61 @@ Noeud * ajout(Arbre *A, char *mot){
     return NULL;
 }
 
+/**
+ * @brief Fonction qui enlève de l'arbre le plus grand mot
+ * 
+ * @param A Arbre *
+ * @return Noeud* 
+ */
+Noeud * extrait_max(Arbre *A){
+    Noeud * tmp;
+    if (*A == NULL)
+        return *A;
+    if ((*A)->fd == NULL) {
+        tmp = *A;
+        *A = (*A)->fg;
+        return tmp;
+    }
+    return extrait_max(&((*A)->fd));
+}
+
+/**
+ * @brief Fonction qui supprime le mot donné en paramètre de l'arbre
+ * s'il existe
+ * 
+ * @param A Arbre *
+ * @param mot char *
+ * @return Noeud* 
+ */
+Noeud * suppression(Arbre * A, char * mot){
+    Noeud * tmp, * max;
+    int cmp = strcmp(mot, (*A)->mot);
+    if (*A == NULL)
+        return *A;
+    if (cmp < 0 && (*A)->fg != NULL)
+        return suppression(&((*A)->fg), mot);
+    else if (cmp > 0 && (*A)->fd != NULL)
+        return suppression(&((*A)->fd), mot);
+    tmp = *A;
+    if ((*A)->fg == NULL && (*A)->fd == NULL){
+        *A = NULL;
+    }
+    else if ((*A)->fg == NULL)
+        *A = (*A)->fd;
+    else if ((*A)->fd == NULL)
+        *A = (*A)->fg;
+    else {
+        max = extrait_max(&((*A)->fg));
+        (*A)->mot = max->mot;
+    }
+    return tmp;
+}
+
+/**
+ * @brief Fonction qui libère la place mémoire de l'arbre
+ * 
+ * @param A Arbre *
+ */
 void libere(Arbre * A){
     if (*A){
         libere(&(*A)->fg);
@@ -55,12 +129,24 @@ void libere(Arbre * A){
     }
 }
 
+/**
+ * @brief Fonction qui écrit dans un fichier .dot le début du paramètrage
+ * de celui-ci
+ * 
+ * @param f FILE *
+ */
 void ecrireDebut(FILE *f){
     fprintf(f, "digraph arbre {\n"
             "  node [shape = record, height = .1]\n"
             "  edge [tailclip = false , arrowtail = dot , dir = both ];\n\n");
 }
 
+/**
+ * @brief Fonction écrivant l'arbre dans le fichier .dot
+ * 
+ * @param f FILE *
+ * @param a Arbre
+ */
 void ecrireArbre(FILE *f, Arbre a){
     fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droite>\"];\n", a, a->mot);
     if (a->fg){
@@ -74,10 +160,23 @@ void ecrireArbre(FILE *f, Arbre a){
     }
 }
 
+/**
+ * @brief Fonction qui écrit une "}" pour fermer le paramètrage du 
+ * fichier .dot
+ * 
+ * @param f FILE *
+ */
 void ecrireFin(FILE *f){
     fprintf(f, "}\n");
 }
 
+/**
+ * @brief Fonction qui dessine l'arbre du fichier .dot dans
+ * un fichier .pdf
+ * 
+ * @param nom char *
+ * @param A Arbre
+ */
 void dessine(char * nom, Arbre A){
 
     char *dotfile = (char *) malloc((sizeof(char)) * (strlen(nom) + 4));
@@ -106,6 +205,14 @@ void dessine(char * nom, Arbre A){
 
 // Partie 2
 
+/**
+ * @brief Fonction qui récupère les mots d'un fichier .txt et les
+ * insèrent un arbre
+ * 
+ * @param nom char *
+ * @param A Arbre
+ * @return int 
+ */
 int cree_arbre(char * nom, Arbre * A){
     FILE *fichier = fopen(nom, "r");
     char * buffer = (char *) malloc(512);
