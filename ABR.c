@@ -1,4 +1,4 @@
-#include "ABR.H"
+#include "ABR.h"
 
 Noeud * alloue_noeud(char * mot){
     Noeud * nouveau = (Noeud *) malloc(sizeof(Noeud));
@@ -102,4 +102,37 @@ void dessine(char * nom, Arbre A){
     system(cmd);
 
     free(dotfile);
+}
+
+// Partie 2
+
+int cree_arbre(char * nom, Arbre * A){
+    FILE *fichier = fopen(nom, "r");
+    char * buffer = (char *) malloc(512);
+    const char * separateurs = " \n,;:.?!\"()-'";
+
+    char * strToken;
+
+    while (! feof(fichier)){
+        fgets( buffer, 512, fichier);
+
+        if (ferror(fichier)){
+            fprintf(stderr, "Erreur\n");
+            libere(A);
+            break;
+        }
+
+        strToken = strtok(buffer, separateurs);
+
+        while (strToken){
+            ajout(A, strToken);
+            strToken = strtok(NULL, separateurs);
+        }
+
+    }
+    free(buffer);
+    fclose(fichier);
+
+    return 1;
+
 }

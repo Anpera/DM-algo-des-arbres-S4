@@ -6,12 +6,12 @@ Test : objets/ABR.o objets/test_ABR.o
 	mkdir -p pdfs
 	$(CC) -o $@ $^
 
-objets/ABR.o: ABR.C ABR.H
+objets/ABR.o: ABR.c ABR.h
 	mkdir -p objets
 	mkdir -p pdfs
 	$(CC) -c -o $@ $<
 
-objets/test_ABR.o : test_ABR.C ABR.H
+objets/test_ABR.o : test_ABR.c ABR.h
 	$(CC) -c -o $@ $<
 
 cleandeluxe: cleanObj cleanPdf

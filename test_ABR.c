@@ -1,31 +1,15 @@
 #include "ABR.h"
 
 int main(){
-    char strings[30];
-    strcpy(strings, "bonjour");
-    Arbre a = alloue_noeud(strings);
-    strcpy(strings, "bye");
-    ajout(&a, strings);
-    strcpy(strings, "hello");
-    ajout(&a, strings);
-    strcpy(strings, "Aled");
-    ajout(&a, strings);
-    strcpy(strings, "a");
-    ajout(&a, strings);
-    strcpy(strings, "Fini !");
-    ajout(&a, strings);
-    strcpy(strings, "coucou");
-    ajout(&a, strings);
-    strcpy(strings, "bonjour");
-    ajout(&a, strings);
+    Arbre A = NULL;
 
-    parcours_infixe(a);
+    cree_arbre("test.txt", &A);
 
-    strcpy(strings, "pdfs/testis");
+    parcours_infixe(A);
 
-    dessine(strings, a);
+    dessine("pdfs/testis", A);
 
-    libere(&a);
+    libere(&A);
 
     return 0;
 }

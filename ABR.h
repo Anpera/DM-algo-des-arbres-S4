@@ -19,5 +19,6 @@ void ecrireDebut(FILE *f);
 void ecrireArbre(FILE *f, Arbre a);
 void ecrireFin(FILE *f);
 void dessine(char * nom, Arbre A);
+int cree_arbre(char * nom, Arbre * A);
 
 #endif
