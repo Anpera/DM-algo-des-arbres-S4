@@ -92,26 +92,36 @@ Noeud * extrait_max(Arbre *A){
  * @return Noeud* 
  */
 Noeud * suppression(Arbre * A, char * mot){
-    Noeud * tmp, * max;
-    int cmp = strcmp(mot, (*A)->mot);
+    Noeud * tmp = NULL, * max = NULL;
+    int cmp;
     if (*A == NULL)
         return *A;
+
+    cmp = strcmp(mot, (*A)->mot);
+
     if (cmp < 0 && (*A)->fg != NULL)
         return suppression(&((*A)->fg), mot);
+
     else if (cmp > 0 && (*A)->fd != NULL)
         return suppression(&((*A)->fd), mot);
-    tmp = *A;
-    if ((*A)->fg == NULL && (*A)->fd == NULL){
-        *A = NULL;
+    
+    else if (cmp == 0){
+        tmp = *A;
+        if ((*A)->fg == NULL && (*A)->fd == NULL){
+            *A = NULL;
+        }
+        else if ((*A)->fg == NULL)
+            *A = (*A)->fd;
+
+        else if ((*A)->fd == NULL)
+            *A = (*A)->fg;
+            
+        else {
+            max = extrait_max(&((*A)->fg));
+            (*A)->mot = max->mot;
+        }
     }
-    else if ((*A)->fg == NULL)
-        *A = (*A)->fd;
-    else if ((*A)->fd == NULL)
-        *A = (*A)->fg;
-    else {
-        max = extrait_max(&((*A)->fg));
-        (*A)->mot = max->mot;
-    }
+    
     return tmp;
 }
 
