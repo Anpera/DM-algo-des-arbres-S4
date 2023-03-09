@@ -99,10 +99,10 @@ Noeud * suppression(Arbre * A, char * mot){
 
     cmp = strcmp(mot, (*A)->mot);
 
-    if (cmp < 0 && (*A)->fg != NULL)
+    if (cmp < 0)
         return suppression(&((*A)->fg), mot);
 
-    else if (cmp > 0 && (*A)->fd != NULL)
+    else if (cmp > 0)
         return suppression(&((*A)->fd), mot);
     
     else if (cmp == 0){
@@ -115,13 +115,14 @@ Noeud * suppression(Arbre * A, char * mot){
 
         else if ((*A)->fd == NULL)
             *A = (*A)->fg;
-            
+
         else {
             max = extrait_max(&((*A)->fg));
-            (*A)->mot = max->mot;
+            max->fg = (*A)->fg;
+            max->fd = (*A)->fd;
+            (*A) = max;
         }
     }
-    
     return tmp;
 }
 
