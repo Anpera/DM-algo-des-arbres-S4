@@ -7,21 +7,22 @@
  * @return Noeud* 
  */
 Noeud * alloue_noeud(char * mot){
+    // Noeud * nouveau = (Noeud *) malloc(sizeof(Noeud));
     Noeud * nouveau = (Noeud *) malloc(sizeof(Noeud));
     if (nouveau){
         nouveau->fg = NULL;
         nouveau->fd = NULL;
         // nouveau->mot = strdup(mot);  //Méthode 1
-        nouveau->mot = (char *) malloc(sizeof(mot));//Alternative
+        nouveau->mot = (char *) calloc(strlen(mot) + 1, sizeof(char));//Alternative
         if (nouveau->mot){
             //strcpy(nouveau->mot, mot); //Alternative 1
-            for (int i = 0; i <strlen(mot); i++) //Alternative2
+            for (int i = 0; i < strlen(mot); i++) //Alternative2
                 nouveau->mot[i] = mot[i];
         }
         else
             free(nouveau);
     }
-    return nouveau;
+    return nouveau; 
 }
 
 /**
@@ -92,38 +93,43 @@ Noeud * extrait_max(Arbre *A){
  * @return Noeud* 
  */
 Noeud * suppression(Arbre * A, char * mot){
-    Noeud * tmp = NULL, * max = NULL;
-    int cmp;
-    if (*A == NULL)
-        return *A;
+	Noeud * tmp = NULL, * max = NULL;
+	int cmp;
+	if (*A == NULL)
+		return *A;
 
-    cmp = strcmp(mot, (*A)->mot);
+	if (mot == NULL)
+		return NULL;
 
-    if (cmp < 0)
-        return suppression(&((*A)->fg), mot);
+	cmp = strcmp(mot, (*A)->mot);
 
-    else if (cmp > 0)
-        return suppression(&((*A)->fd), mot);
-    
-    else if (cmp == 0){
-        tmp = *A;
-        if ((*A)->fg == NULL && (*A)->fd == NULL){
-            *A = NULL;
-        }
-        else if ((*A)->fg == NULL)
-            *A = (*A)->fd;
+	if (cmp < 0)
+		return suppression(&((*A)->fg), mot);
 
-        else if ((*A)->fd == NULL)
-            *A = (*A)->fg;
+	else if (cmp > 0)
+		return suppression(&((*A)->fd), mot);
+	
+	else if (cmp == 0)
+	{
+		tmp = *A;
+		if ((*A)->fg == NULL && (*A)->fd == NULL)
+		{
+			*A = NULL;
+		}
+		else if ((*A)->fg == NULL)
+			*A = (*A)->fd;
 
-        else {
-            max = extrait_max(&((*A)->fg));
-            max->fg = (*A)->fg;
-            max->fd = (*A)->fd;
-            (*A) = max;
-        }
-    }
-    return tmp;
+		else if ((*A)->fd == NULL)
+			*A = (*A)->fg;
+
+		else {
+			max = extrait_max(&((*A)->fg));
+			max->fg = (*A)->fg;
+			max->fd = (*A)->fd;
+			(*A) = max;
+		}
+	}
+	return tmp;
 }
 
 /**
@@ -158,15 +164,20 @@ void ecrireDebut(FILE *f){
  * @param f FILE *
  * @param a Arbre
  */
-void ecrireArbre(FILE *f, Arbre a){
-    fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droite>\"];\n", a, a->mot);
+void ecrireArbre(FILE *f, Arbre a)
+{
+	// printf("%d\n", a->mot[8]);
+	// printf("%lu\n", strlen(a->mot));
+
+
+    fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droite>\"];\n", (void*)a, a->mot);
     if (a->fg){
-        fprintf(f, "  n%p:gauche:c -> n%p:mot;\n", a, a->fg);
+        fprintf(f, "  n%p:gauche:c -> n%p:mot;\n", (void*)a, (void*)a->fg);
         ecrireArbre(f, a->fg);
     }
 
     if (a->fd){
-        fprintf(f, "  n%p:droite:c -> n%p:mot;\n", a, a->fd);
+        fprintf(f, "  n%p:droite:c -> n%p:mot;\n", (void*)a, (void*)a->fd);
         ecrireArbre(f, a->fd);
     }
 }
@@ -190,12 +201,14 @@ void ecrireFin(FILE *f){
  */
 void dessine(char * nom, Arbre A){
 
-    char *dotfile = (char *) malloc((sizeof(char)) * (strlen(nom) + 4));
+    char *dotfile = (char *) malloc((sizeof(char)) * (strlen(nom) + 5));
 
     strcpy(dotfile, nom);
     strcat(dotfile, ".dot");
 
     FILE *fichier = fopen(dotfile, "w");
+	if (fichier == NULL)
+		return;
 
     ecrireDebut(fichier);
     ecrireArbre(fichier, A);
@@ -224,9 +237,12 @@ void dessine(char * nom, Arbre A){
  * @param A Arbre
  * @return int 
  */
-int cree_arbre(char * nom, Arbre * A){
+int cree_arbre(char * nom, Arbre * A)
+{
     FILE *fichier = fopen(nom, "r");
-    char * buffer = (char *) malloc(512);
+	if (fichier == NULL)
+		return 0;
+    char * buffer = (char *) calloc(512, sizeof(char));
     const char * separateurs = " \n,;:.?!\"()-'";
 
     char * strToken;
