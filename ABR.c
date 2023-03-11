@@ -7,7 +7,6 @@
  * @return Noeud* 
  */
 Noeud * alloue_noeud(char * mot){
-    // Noeud * nouveau = (Noeud *) malloc(sizeof(Noeud));
     Noeud * nouveau = (Noeud *) malloc(sizeof(Noeud));
     if (nouveau){
         nouveau->fg = NULL;

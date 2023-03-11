@@ -1,0 +1,3 @@
+En informatique, un arbre binaire est une structure de données 
+qui peut se représenter sous la forme d'une hiérarchie
+dont chaque élément est appelé noeud.

@@ -3,7 +3,7 @@
 int main(){
     Arbre A = NULL;
     char *mot = "de";
-    cree_arbre("test.txt", &A);
+    cree_arbre("filtre.txt", &A);
     dessine("pdfs/testis", A);
     Noeud * supp = suppression(&A, mot);
 

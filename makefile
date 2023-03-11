@@ -25,9 +25,7 @@ objets/test_ABR.o : test_ABR.c ABR.h
 cleanDeluxe : cleanObj cleanPdf
 
 cleanObj :
-	rm -f objets/ABR.o
-	rm -f objets/test_ABR.o
-	rm -f objets/filtrage.o
+	rm -f objets/*
 
 cleanPdf :
 	rm -f pdfs/*
