@@ -163,12 +163,7 @@ void ecrireDebut(FILE *f){
  * @param f FILE *
  * @param a Arbre
  */
-void ecrireArbre(FILE *f, Arbre a)
-{
-	// printf("%d\n", a->mot[8]);
-	// printf("%lu\n", strlen(a->mot));
-
-
+void ecrireArbre(FILE *f, Arbre a){
     fprintf(f, "  n%p [label = \"<gauche> | <mot> %s | <droite>\"];\n", (void*)a, a->mot);
     if (a->fg){
         fprintf(f, "  n%p:gauche:c -> n%p:mot;\n", (void*)a, (void*)a->fg);
@@ -267,5 +262,4 @@ int cree_arbre(char * nom, Arbre * A)
     fclose(fichier);
 
     return 1;
-
 }
