@@ -62,7 +62,28 @@ De plus, vous pouvez ajouter l'option <code>-v</code> où vous voulez en tant qu
 # <a name="Etat">Etat d'avancement du projet</a>
 </div>
 
-Wow on a bien avancé
+Le projet est 100% fonctionnel.
+
+Nous avons rempli les tâches suivantes:
+- Création et gestion d'un arbre de chaînes de caractères
+    - Gestion de l'allocation de la mémoire
+    - Parcours des mots contenus dans l'arbre sur la sortie standard dans 
+    l'ordre d'un parcours infixe
+    - Ajout d'un noeud en suivant la structure d'un arbre binaire de recherche
+    - Possibilité de supprimer un noeuudnoeud, mais également d'extraire le noeud maximum
+    - Libération de tous les emplacements de mémoire alloués
+    - Fonction pour dessiner les arbres dans un fichiers pdfs
+- Création d'un arbre binaire de recherche à partir d'un fichier texte
+    - Découpage du fichier en tokens pour lire le fichier mot par mot
+- Filtrage des mots d'un texte
+    - Suppresion d'un noeud et le transférer dans un autre arbre
+    - Affichage sur la sortie standard des mots présents que dans le fichier texte,
+    puis que des mots en communs avec le filtre
+    - Gestion des arguments avec un argument optionnel pour lancer les fonctions de représentations
+    graphiques des arbres
+- Vérification et correction des possibles fuites de mémoires.
+
+C'est donc un programme garantit sans fuites de mémoires.
 
 ---
 <div style = "text-align: center">
