@@ -91,8 +91,16 @@ C'est donc un programme garantit sans fuites de mémoires.
 # <a name="Organisation">Organisation du travail</a>
 </div>
 
-50-50
-
+<p> Partie d'Amal : </p>
+<ul>
+<li>Toute la partie 1 sauf extraitmax et suppression</li>
+<li> La partie 2
+</ul>
+<p> Partie de Rayan :</p>
+<ul>
+<li> Extraitmax et suppression </li>
+<li> Partie 3
+</ul>
 
 ---
 <div style = "text-align:center">
@@ -100,4 +108,4 @@ C'est donc un programme garantit sans fuites de mémoires.
 # <a name="Conclusion">Conclusion</a>
 </div>
 
-Ct fun
+Ce projet a été fort instrustif sur l'utilisation de nouveaux outils comme Valgrind et fût très intéressant sur la gestion de la mémoire
