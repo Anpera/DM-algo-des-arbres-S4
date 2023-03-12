@@ -103,13 +103,25 @@ C'est donc un programme garantit sans fuites de mémoires.
 
 <p> Partie d'Amal : </p>
 <ul>
-<li>Toute la partie 1 sauf extraitmax et suppression</li>
-<li> La partie 2
+<li>alloue_noeud qui fait l'allocation mémoire d'un noeud en recopiant le mot passé en argument</li>
+<li>parcours_infixe qui fait un parcours infixe de l'arbre</li>
+<li>ajout qui ajoute un noeud à un arbre</li>
+<li>libere qui libère la place mémoire de tous les noeud de l'arbre</li>
+<li>Les fonctions de gestion des fichiers .dot :</li>
+<ul>
+<li>ecrireDebut</li>
+<li>ecrireArbre</li>
+<li>ecrireFin</li>
+<li>dessine</li>
+</ul>
+<li>cree_arbre qui crée l'arbre à partir d'un fichier texte
+<li>écriture du main du fichier test_ABR.c</li>
 </ul>
 <p> Partie de Rayan :</p>
 <ul>
-<li> Extraitmax et suppression </li>
-<li> Partie 3
+<li> extrait_max qui extrait de l'arbre le plus grand noeud </li>
+<li>suppression qui supprime un mot s'il est dans l'arbre et repositionne l'arbre</li>
+<li>Gestion du filtre et écriture du main du fichier filtrage.c
 </ul>
 
 ---
@@ -118,4 +130,5 @@ C'est donc un programme garantit sans fuites de mémoires.
 # <a name="Conclusion">Conclusion</a>
 </div>
 
-Ce projet a été fort instrustif sur l'utilisation de nouveaux outils comme Valgrind et fût très intéressant sur la gestion de la mémoire
+Ce projet a été fort instrustif sur l'utilisation de nouveaux outils comme Valgrind et fût très intéressant sur la gestion de la mémoire.
+Mais ce projet a aussi renforcé nos acquis sur l'utilisation et la manipulation des arbres binaires de recherches  
