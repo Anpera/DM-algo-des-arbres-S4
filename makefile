@@ -9,17 +9,17 @@ Test : objets/ABR.o objets/test_ABR.o
 	mkdir -p pdfs
 	$(CC) $(CFLAGS) -o $@ $^
 
-objets/filtrage.o : filtrage.c ABR.h
+objets/filtrage.o : src/filtrage.c src/ABR.h
 	mkdir -p objets
 	mkdir -p pdfs
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-objets/ABR.o : ABR.c ABR.h
+objets/ABR.o : src/ABR.c src/ABR.h
 	mkdir -p objets
 	mkdir -p pdfs
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-objets/test_ABR.o : test_ABR.c ABR.h
+objets/test_ABR.o : src/test_ABR.c src/ABR.h
 	$(CC)  $(CFLAGS) -c -o $@ $<
 
 cleanDeluxe : cleanObj cleanPdf
