@@ -56,6 +56,16 @@ De plus, vous pouvez ajouter l'option <code>-v</code> où vous voulez en tant qu
 - <code>filtrage.pdf</code>&nbsp;: L'arbre contenant les mots présents dans le fichier <code>texte.txt</code> et absent de <code>filtre.txt</code>
 - <code>en_commun.pdf</code>&nbsp; L'arbre contenant les mots communs aux fichiers <code>texte.txt</code> et <code>filtre.txt</code>
 
+## **Nettoyage**
+Pour finir, si vous voulez nettoyer le contenu des dossiers `objets` et `pdfs`, il suffit de lancer les fonctions&nbsp;:
+
+    make cleanDeluxe
+qui exécute 
+
+    make cleanObj
+    make cleanPdf
+nettoyant respectivement le dossier `objets` et le dossier `pdfs`
+
 ---
 <div style = "text-align:center">
 
