@@ -130,4 +130,5 @@ C'est donc un programme garantit sans fuites de mémoires.
 # <a name="Conclusion">Conclusion</a>
 </div>
 
-Ce projet a été fort instrustif sur l'utilisation de nouveaux outils comme Valgrind et fût très intéressant sur la gestion de la mémoire
+Ce projet a été fort instrustif sur l'utilisation de nouveaux outils comme Valgrind et fût très intéressant sur la gestion de la mémoire.
+Mais ce projet a aussi renforcé nos acquis sur l'utilisation et la manipulation des arbres binaires de recherches  
